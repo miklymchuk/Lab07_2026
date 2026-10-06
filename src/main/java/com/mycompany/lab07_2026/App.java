@@ -52,19 +52,15 @@ public class App extends Application {
         PathTransition pt = new PathTransition(Duration.millis(6000), rectangle, circle);
         pt.setCycleCount(Timeline.INDEFINITE);
         pt.setRate(-1);
-        pt.play();
         
         // SequentialTransition with its base Transitions
         FadeTransition st1 = new FadeTransition(Duration.millis(2000), ellipse);
         st1.setFromValue(1.0);
         st1.setToValue(0.5);
-        st1.setAutoReverse(true);
         
         ScaleTransition st2 = new ScaleTransition(Duration.millis(1100), ellipse);
         st2.setToX(1.5);
         st2.setToY(1.5);
-        st2.setCycleCount(1);
-        st2.setAutoReverse(true);
         
         RotateTransition st3 = new RotateTransition(Duration.millis(1400), ellipse);
         st3.setByAngle(90);
@@ -73,7 +69,8 @@ public class App extends Application {
         st4.setToX(150);
         
         SequentialTransition ellipseTransitions = new SequentialTransition(st1, st2, st3, st4);
-        ellipseTransitions.play();
+        ellipseTransitions.setAutoReverse(true);
+        ellipseTransitions.setCycleCount(Timeline.INDEFINITE);
         
         Pane pane = new Pane(rectangle, circle, ellipse);
         HBox buttons = new HBox(start, reset, exit);
@@ -85,6 +82,28 @@ public class App extends Application {
         var scene = new Scene(root, 640, 580);
         stage.setScene(scene);
         stage.show();
+        
+        // Button event handling
+        start.setOnAction(e -> {
+            pt.play();
+            ellipseTransitions.play();
+        });        
+        
+        reset.setOnAction(e -> {
+            pt.stop();
+            ellipseTransitions.stop();
+            pt.play();
+            ellipseTransitions.play();
+        });
+        
+        exit.setOnAction(e -> {
+            pt.stop();
+            ellipseTransitions.stop();
+            pt.play();
+            ellipseTransitions.play();
+            pt.stop();
+            ellipseTransitions.stop();
+        });
     }
 
     public static void main(String[] args) {
