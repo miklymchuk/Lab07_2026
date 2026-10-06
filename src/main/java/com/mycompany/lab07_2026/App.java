@@ -8,8 +8,13 @@ import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
@@ -25,6 +30,12 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) {
+        
+        // Buttons
+        var start = new Button("Start");
+        var reset = new Button("Reset");
+        var exit = new Button("Exit");
+        
         // Shapes 
         var rectangle = new Rectangle(560, 400);
         rectangle.setFill(null);
@@ -64,7 +75,14 @@ public class App extends Application {
         SequentialTransition ellipseTransitions = new SequentialTransition(st1, st2, st3, st4);
         ellipseTransitions.play();
         
-        var scene = new Scene(new Pane(rectangle, circle, ellipse), 640, 480);
+        Pane pane = new Pane(rectangle, circle, ellipse);
+        HBox buttons = new HBox(start, reset, exit);
+        buttons.setSpacing(15);
+        buttons.setAlignment(Pos.CENTER);
+        VBox root = new VBox(pane, buttons);
+        root.setSpacing(50);
+        
+        var scene = new Scene(root, 640, 580);
         stage.setScene(scene);
         stage.show();
     }
