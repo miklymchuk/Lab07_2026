@@ -92,6 +92,11 @@ public class App extends Application {
         reset.setOnAction(e -> {
             pt.stop();
             ellipseTransitions.stop();
+            ellipse.setScaleX(1.0);
+            ellipse.setScaleY(1.0);
+            ellipse.setRotate(0);
+            ellipse.setTranslateX(0);
+            ellipse.setTranslateY(0);
             pt.play();
             ellipseTransitions.play();
         });
@@ -99,10 +104,14 @@ public class App extends Application {
         exit.setOnAction(e -> {
             pt.stop();
             ellipseTransitions.stop();
-            pt.play();
-            ellipseTransitions.play();
-            pt.stop();
-            ellipseTransitions.stop();
+            ellipse.setScaleX(1.0);
+            ellipse.setScaleY(1.0);
+            ellipse.setRotate(0);
+            ellipse.setTranslateX(0);
+            ellipse.setTranslateY(0);
+            ellipse.setOpacity(1.0);
+            circle.setTranslateX(0);
+            circle.setTranslateY(0);
         });
     }
 
